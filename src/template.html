@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task me do</title>
+</head>
+<body>
+  <div class="app-container">  
+    <div class="sidebar-header"><h1>Task me do</h1></div>
+    <div class="sidebar">
+        
+        <form>
+        <label for="new-category">Nuova categoria</label>
+        <input type="text" id="new-category" placeholder="Nome categoria"> <button type="submit">+</button>
+        </form>
+        <div class="categories">
+            <h2 id="categories-title">Categorie:</h2>
+            <ul>
+                <li>Personale</li>
+                <li>Lavoro</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="main">
+        <h1 class="category-selected">Personale</h1>
+        <div class="task-list">
+            <div class="task">
+                <h2>Vai dal dottore</h2>
+                <h4>Ricorda esami sangue</h4>
+                <h4>15/09/2025</h4>
+            </div>
+        </div>
+        <dialog id="new-task">
+            <form method="dialog">
+                <label for="task-title">Titolo</label>
+                <input type="text" id="task-title" name="title" required>
+                
+                <label for="task-desc">Descrizione</label>
+                <input type="text" id="task-desc" name="description">
+                
+                <label for="task-date">Scadenza</label>
+                <input type="date" id="task-date" name="date">
+
+                <label for="task-priority">Priorità</label>
+                <div id="task-priority">
+                    <input type="radio" id="priority-low" name="priority" value="low">
+                    <label for="priority-low">Bassa</label>
+                    <input type="radio" id="priority-medium" name="priority" value="medium">
+                    <label for="priority-medium">Media</label>
+                    <input type="radio" id="priority-high" name="priority" value="high">
+                    <label for="priority-high">Alta</label>
+                </div>
+                
+                <button type="submit">Aggiungi</button>
+                <button type="button">Annulla</button>
+
+            </form>
+        </dialog>
+        <button id="new-task-btn">Nuovo task</button>
+    </div>
+  </div>  
+</body>
+</html>

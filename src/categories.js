@@ -1,6 +1,6 @@
 import { Task } from "./tasks.js";
 
-class Category {
+export class Category {
     constructor(name){
         this.name = name;
         this.id = crypto.randomUUID()
@@ -27,15 +27,17 @@ class Category {
             this.tasks.splice(index, 1)
         }
     }
+
+    updateTask(id, fields){
+        const task = this.tasks.find( (task) => task.id === id)
+        if (task !== undefined) {
+            task.update(fields)
+        }
+    }
+
 }
 
 
-const category = new Category('Personale')
 
-category.createTask({title:'Lavatrice', desc:'Detersivi', dueDate:'12/09/2025', priority: 'High', isCompleted: false})
-category.createTask({title:'Casa', desc:'Detersivi', dueDate:'12/09/2025', priority: 'High', isCompleted: false})
-category.createTask({title:'Pisello', desc:'Detersivi', dueDate:'12/09/2025', priority: 'High', isCompleted: false})
 
-const idDaEliminare = category.tasks[1].id;
-category.deleteTask(idDaEliminare)
-console.log(category.tasks)
+

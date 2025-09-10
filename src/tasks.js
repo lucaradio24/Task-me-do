@@ -23,7 +23,4 @@ export class Task {
     }
 }
 
-const task = new Task ('Fare spesa', 'ricorda buste', '12/09/2025', 'Alta', false)
 
-
-task.update({title:"Nuovo"})

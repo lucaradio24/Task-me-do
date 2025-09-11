@@ -10,30 +10,30 @@
     <div class="sidebar-header"><h1>Task me do</h1></div>
     <div class="sidebar">
         
-        <form>
+        <form id="new-category-form">
         <label for="new-category">Nuova categoria</label>
-        <input type="text" id="new-category" placeholder="Nome categoria"> <button type="submit">+</button>
+        <input type="text" id="new-category" placeholder="Nome categoria"> <button id="new-category-btn" type="submit">+</button>
         </form>
-        <div class="categories">
-            <h2 id="categories-title">Categorie:</h2>
-            <ul>
-                <li>Personale</li>
-                <li>Lavoro</li>
+        <h2 id="categories-title">Categorie:</h2>
+        <ul class="categories-list">
+            
+            
+                
             </ul>
         </div>
-    </div>
+    
 
     <div class="main">
         <h1 class="category-selected">Personale</h1>
         <div class="task-list">
-            <div class="task">
+            <!-- <div class="task">
                 <h2>Vai dal dottore</h2>
                 <h4>Ricorda esami sangue</h4>
                 <h4>15/09/2025</h4>
-            </div>
+            </div> -->
         </div>
-        <dialog id="new-task">
-            <form method="dialog">
+        <dialog id="new-task-dialog">
+            <form id="new-task-form" method="dialog">
                 <label for="task-title">Titolo</label>
                 <input type="text" id="task-title" name="title" required>
                 
@@ -60,6 +60,7 @@
         </dialog>
         <button id="new-task-btn">Nuovo task</button>
     </div>
-  </div>  
+  </div> 
+   
 </body>
 </html>

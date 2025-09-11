@@ -35,6 +35,10 @@ export class Category {
         }
     }
 
+    getTasks(){
+        return this.tasks
+    }
+
 }
 
 

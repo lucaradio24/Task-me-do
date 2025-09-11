@@ -1,11 +1,13 @@
 import { Category } from "./categories.js";
 
-class Store {
+export class Store {
     constructor (categories){
         this.categories = []
         const category = categories.forEach(name => {
             this.createCategory(name)            
         });
+        // proprietà che tiene traccia di quale cat è selezionata
+        this.selectedCategoryName = null;
     }
 
     createCategory(name){
@@ -32,6 +34,18 @@ class Store {
         if (category && !alreadyExists){
            category.name = newName
         }
+    }
+
+    getCategories(){
+        return this.categories
+    }
+
+    selectCategory(name){
+        this.selectedCategoryName = name;
+    }
+
+    getSelectedCategory(){
+        return this.categories.find(cat => cat.name === this.selectedCategoryName)
     }
 }   
 

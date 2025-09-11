@@ -5,7 +5,7 @@ export class Task {
         this.id = crypto.randomUUID()
         this.title = title;
         this.desc = desc;
-        this.dueDate = format(dueDate, "dd/MM/yyyy")
+        this.dueDate = new Date(dueDate)
         this.priority = priority;
         this.isCompleted = isCompleted = false;
     }

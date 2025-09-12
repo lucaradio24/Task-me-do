@@ -27,3 +27,8 @@ body{
 .main {
     grid-area: main;
 }
+
+.completed {
+    text-decoration: line-through;
+    color: gray;
+}

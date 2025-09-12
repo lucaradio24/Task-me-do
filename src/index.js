@@ -21,6 +21,9 @@ store.createCategory("Personale");
 store.selectCategory("Personale");
 renderCategories();
 
+let editingTaskId = null;
+
+
 // Bottone per la modale + form submit listener del Nuovo task
 newTaskBtn.addEventListener("click", () => {
   newTaskDialog.showModal();
@@ -32,7 +35,19 @@ newTaskForm.addEventListener("submit", (e) => {
   const title = document.querySelector("#task-title").value;
   const desc = document.querySelector("#task-desc").value;
   const dueDate = document.querySelector("#task-date").value;
-  const priority = document.querySelector("#task-priority").value;
+  const priority = document.querySelector("input[name='priority']:checked").value;
+  
+  if(editingTaskId) {
+   store.getSelectedCategory().updateTask(editingTaskId, {
+    title: title,
+    desc: desc,
+    dueDate: dueDate,
+    priority: priority,
+   });
+   renderTasks(store.getSelectedCategory().name);
+   newTaskDialog.close()
+   editingTaskId = null;
+  } else {
 
   store.getSelectedCategory().createTask({
     title: title,
@@ -43,6 +58,7 @@ newTaskForm.addEventListener("submit", (e) => {
   });
   renderTasks(store.getSelectedCategory().name);
   newTaskDialog.close();
+  }
 });
 
 // Funzione per mostrare i tasks
@@ -60,6 +76,7 @@ function renderTasks(name) {
         <label for='complete'>Completato</label>
         <input type="checkbox" id='complete' class="complete-checkbox" ${
           t.isCompleted ? "checked" : ""}>
+          <button class='edit-btn'>Modifica</button>
           <button class='del-btn'>Elimina</button>`;
     taskList.appendChild(task);
     
@@ -77,7 +94,14 @@ function renderTasks(name) {
     deleteBtn.addEventListener('click', () => {
         category.deleteTask(t.id);
         renderTasks(name)
-        
+    })
+
+    const editBtn = task.querySelector('.edit-btn');
+    editBtn.addEventListener('click', () => {
+    const formSubmitBtn = document.querySelector('#form-submit')
+        formSubmitBtn.textContent = 'Modifica'
+        editingTaskId = t.id;   
+        newTaskDialog.showModal()
     })
   });
 }

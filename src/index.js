@@ -9,7 +9,7 @@ const newTaskForm = document.querySelector("#new-task-form");
 const newTaskDialog = document.querySelector("#new-task-dialog");
 const newTaskBtn = document.querySelector("#new-task-btn");
 const taskList = document.querySelector(".task-list");
-
+const cancelBtn = document.querySelector('#cancel-btn');
 const categoriesList = document.querySelector(".categories-list");
 const newCategoryBtn = document.querySelector("#new-category-btn");
 const newCategoryForm = document.querySelector("#new-category-form");
@@ -29,13 +29,15 @@ newTaskBtn.addEventListener("click", () => {
   newTaskDialog.showModal();
 });
 
+
+
 newTaskForm.addEventListener("submit", (e) => {
   e.preventDefault();
 
   const title = document.querySelector("#task-title").value;
   const desc = document.querySelector("#task-desc").value;
   const dueDate = document.querySelector("#task-date").value;
-  const priority = document.querySelector("input[name='priority']:checked").value;
+  const priority = document.querySelector("input[name='priority']:checked")?.value || 'Media';
   
   if(editingTaskId) {
    store.getSelectedCategory().updateTask(editingTaskId, {
@@ -58,8 +60,11 @@ newTaskForm.addEventListener("submit", (e) => {
   });
   renderTasks(store.getSelectedCategory().name);
   newTaskDialog.close();
+  newTaskForm.reset();
   }
 });
+
+cancelBtn.addEventListener('click', () => newTaskDialog.close())
 
 // Funzione per mostrare i tasks
 
@@ -101,6 +106,10 @@ function renderTasks(name) {
     const formSubmitBtn = document.querySelector('#form-submit')
         formSubmitBtn.textContent = 'Modifica'
         editingTaskId = t.id;   
+        document.querySelector('#task-title').value = t.title;
+        document.querySelector('#task-desc').value = t.desc;
+        document.querySelector('#task-date').value = t.dueDate;
+        document.querySelector(`input[name='priority'][value='${t.priority}']`).checked = true;
         newTaskDialog.showModal()
     })
   });

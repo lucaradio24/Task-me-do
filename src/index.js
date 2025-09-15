@@ -19,11 +19,6 @@ const completedBtn = document.querySelector("#show-completed");
 const uncompletedBtn = document.querySelector("#show-uncompleted");
 const sortDropdown = document.querySelector("#sort-dropdown");
 
-// Init app
-const store = new Store([]);
-store.createCategory("Personale");
-store.selectCategory("Personale");
-renderCategories();
 
 // Variabili globali
 let editingTaskId = null;
@@ -31,8 +26,39 @@ let activeFilter = "all";
 let activeSort;
 const priorityOrder = { Bassa: 1, Media: 2, Alta: 3 };
 
+// Init app
+const saved = localStorage.getItem('app-state');
+let store;
+if(saved){
+  const savedData = JSON.parse(saved);
+  const categoriesData = savedData.categories;
+  const categories = categoriesData.map(c => {
+    const category = new Category(c.name);
+    c.tasks.forEach(t => {
+      const task = new Task(t.title, t.desc, t.dueDate, t.priority, t.isCompleted);
+      category.createTask(task)
+    });
+    return category
+  });
+  store = new Store(categories);
+  if(categories.length > 0){
+    store.selectCategory(categories[0].name);
+    renderTasks(categories[0].name)
+  }
+  renderCategories()
+} else {
+store = new Store([]);
+store.createCategory("Personale");
+store.selectCategory("Personale");
+renderCategories();
+}
+
+
+
 // Bottone per la modale + form submit listener del Nuovo task
 newTaskBtn.addEventListener("click", () => {
+  editingTaskId = null;
+  document.querySelector("#form-submit").textContent = "Aggiungi";
   newTaskDialog.showModal();
 });
 
@@ -52,9 +78,12 @@ newTaskForm.addEventListener("submit", (e) => {
       dueDate: dueDate,
       priority: priority,
     });
+    store.saveToLocalStorage()
+
     renderTasks(store.getSelectedCategory().name);
     newTaskDialog.close();
     editingTaskId = null;
+    newTaskForm.reset()
   } else {
     store.getSelectedCategory().createTask({
       title: title,
@@ -63,6 +92,7 @@ newTaskForm.addEventListener("submit", (e) => {
       priority: priority,
       isCompleted: false,
     });
+    store.saveToLocalStorage()
     renderTasks(store.getSelectedCategory().name);
     newTaskDialog.close();
     newTaskForm.reset();
@@ -132,6 +162,7 @@ function renderTasks(name) {
     const deleteBtn = task.querySelector(".del-btn");
     deleteBtn.addEventListener("click", () => {
       category.deleteTask(t.id);
+      store.saveToLocalStorage()
       renderTasks(name);
     });
 
@@ -147,6 +178,7 @@ function renderTasks(name) {
         `input[name='priority'][value='${t.priority}']`
       ).checked = true;
       newTaskDialog.showModal();
+      
     });
   });
 }
@@ -184,7 +216,9 @@ newCategoryBtn.addEventListener("click", (e) => {
   e.preventDefault();
   const catName = document.querySelector("#new-category").value;
   store.createCategory(catName);
+  store.saveToLocalStorage()
   renderCategories();
+  newCategoryForm.reset()
 });
 
 // Funzione per mostrare le categorie
@@ -192,8 +226,16 @@ function renderCategories() {
   categoriesList.innerHTML = "";
   store.getCategories().forEach((c) => {
     let cat = document.createElement("li");
-    cat.textContent = `${c.name}`;
+    cat.innerHTML = `${c.name} <svg class="del-cat-btn" xmlns="http://www.w3.org/2000/svg" height="1rem" viewBox="0 -960 960 960" width="24px" fill="#0e0d0dff"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg>`;
     categoriesList.appendChild(cat);
+
+    const delCatBtn = cat.querySelector('.del-cat-btn')
+    delCatBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      store.deleteCategory(c.name);
+      store.saveToLocalStorage();
+      renderCategories();
+    });
 
     cat.addEventListener("click", () => {
       store.selectCategory(c.name);
@@ -203,7 +245,7 @@ function renderCategories() {
   });
 }
 
-// const task = new Task('Titolo di test', 'Descrizione di test', '2025-09-12', 'High', false);
-// const personale = store.getCategories().find((cat) => cat.name === 'Personale')
-// personale.createTask(task)
-// renderTasks('Personale')
+
+
+
+

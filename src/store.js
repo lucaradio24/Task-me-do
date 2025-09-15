@@ -2,10 +2,8 @@ import { Category } from "./categories.js";
 
 export class Store {
     constructor (categories){
-        this.categories = []
-        const category = categories.forEach(name => {
-            this.createCategory(name)            
-        });
+        this.categories = categories || []
+                  
         // proprietà che tiene traccia di quale cat è selezionata
         this.selectedCategoryName = null;
     }
@@ -46,6 +44,12 @@ export class Store {
 
     getSelectedCategory(){
         return this.categories.find(cat => cat.name === this.selectedCategoryName)
+    }
+
+    saveToLocalStorage(){
+       localStorage.setItem('app-state', JSON.stringify({
+        categories: this.getCategories(),
+        selectedCategoryName: this.selectedCategoryName})) 
     }
 }   
 

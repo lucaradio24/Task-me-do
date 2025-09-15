@@ -4,6 +4,8 @@ import { Task } from "./tasks.js";
 import { Category } from "./categories.js";
 import { Store } from "./store.js";
 
+
+
 // Wiring
 const newTaskForm = document.querySelector("#new-task-form");
 const newTaskDialog = document.querySelector("#new-task-dialog");
@@ -14,6 +16,9 @@ const categoriesList = document.querySelector(".categories-list");
 const newCategoryBtn = document.querySelector("#new-category-btn");
 const newCategoryForm = document.querySelector("#new-category-form");
 const categorySelected = document.querySelector(".category-selected");
+const allBtn = document.querySelector('#show-all');
+const completedBtn = document.querySelector('#show-completed');
+const uncompletedBtn = document.querySelector('#show-uncompleted');
 
 // Init app
 const store = new Store([]);
@@ -22,6 +27,7 @@ store.selectCategory("Personale");
 renderCategories();
 
 let editingTaskId = null;
+let activeFilter = 'all';
 
 
 // Bottone per la modale + form submit listener del Nuovo task
@@ -70,21 +76,31 @@ cancelBtn.addEventListener('click', () => newTaskDialog.close())
 
 function renderTasks(name) {
   taskList.innerHTML = "";
+
   const category = store.getCategories().find((cat) => cat.name === name);
-  category.getTasks().forEach((t) => {
-    let task = document.createElement("div");
-    task.classList.add("task");
-    task.innerHTML = `<h2>${t.title}</h2>
-        <p> ${t.desc} </p>
-        <h3>${t.dueDate}</h3>
-        <h4>${t.priority}</h4> 
-        <label for='complete'>Completato</label>
-        <input type="checkbox" id='complete' class="complete-checkbox" ${
-          t.isCompleted ? "checked" : ""}>
-          <button class='edit-btn'>Modifica</button>
-          <button class='del-btn'>Elimina</button>`;
-    taskList.appendChild(task);
-    
+  let tasksToShow = '';
+  if (activeFilter === 'all'){
+    tasksToShow = category.getTasks();
+  } else if(activeFilter === 'completed'){
+    tasksToShow = category.getCompletedTasks();
+  } else {
+    tasksToShow = category.getUncompletedTasks();
+  }
+
+    tasksToShow.forEach((t) => {
+      let task = document.createElement("div");
+      task.classList.add("task");
+      task.innerHTML = `<h2>${t.title}</h2>
+      <p> ${t.desc} </p>
+      <h3>${t.dueDate}</h3>
+      <h4>${t.priority}</h4> 
+      <label for='complete'>Completato</label>
+      <input type="checkbox" id='complete' class="complete-checkbox" ${
+        t.isCompleted ? "checked" : ""}>
+        <button class='edit-btn'>Modifica</button>
+        <button class='del-btn'>Elimina</button>`;
+        taskList.appendChild(task);
+      
     if (t.isCompleted) {
       task.classList.add("completed");
     }
@@ -114,6 +130,22 @@ function renderTasks(name) {
     })
   });
 }
+
+// Bottoni filtri
+allBtn.addEventListener('click', () => {
+  activeFilter = 'all';
+  renderTasks(store.getSelectedCategory().name)
+})
+completedBtn.addEventListener('click', () => {
+  activeFilter = 'completed'
+    renderTasks(store.getSelectedCategory().name)
+
+})
+uncompletedBtn.addEventListener('click', () => {
+  activeFilter = 'uncompleted'
+    renderTasks(store.getSelectedCategory().name)
+
+})
 
 newCategoryBtn.addEventListener("click", (e) => {
   e.preventDefault();

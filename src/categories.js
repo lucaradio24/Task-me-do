@@ -39,6 +39,15 @@ export class Category {
         return this.tasks
     }
 
+    getCompletedTasks(){
+        const completedTasks = this.tasks.filter((t) => t.isCompleted === true)
+        return completedTasks;
+    }
+
+    getUncompletedTasks(){
+        const uncompletedTasks = this.tasks.filter((t) => t.isCompleted === false)
+        return uncompletedTasks;
+    }
 }
 
 

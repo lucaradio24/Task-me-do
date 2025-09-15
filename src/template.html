@@ -28,6 +28,17 @@
         <button id="show-all">Tutti</button>
         <button id="show-completed">Completati</button>
         <button id="show-uncompleted">Da completare</button>
+        <select id="sort-dropdown">
+            <option value="">Ordina per:</option>
+            <optgroup label="Data">
+            <option value="date-inc">↑ Crescente</option>
+            <option value="date-dec">↓ Decrescente</option>
+        </optgroup>
+        <optgroup label="Priorità">
+            <option value="priority-inc">↑ Crescente</option>
+            <option value="priority-dec">↓ Decrescente</option>    
+        </optgroup>
+        </select>
         <div class="task-list">
             <!-- <div class="task">
                 <h2>Vai dal dottore</h2>

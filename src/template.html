@@ -29,7 +29,10 @@
 
       <section class="categories">
         <h2 id="categories-title">Categorie</h2>
+      <div class="categories-wrapper">  
         <ul class="categories-list"></ul>
+        <button id="add-category-chip">Aggiungi</button>
+      </div>  
         <form id="new-category-form" autocomplete="off">
           <label for="new-category">Nuova categoria</label>
           <input
@@ -43,10 +46,12 @@
       </section>
 
       <nav class="tabs">
-        <button id="show-uncompleted" type="button" class="active">Da completare</button>
-        <button id="show-all" type="button">Tutti</button>
+        <button id="show-uncompleted" type="button" class="active">
+          Da completare
+        </button>
         <button id="show-completed" type="button">Completati</button>
-        
+        <button id="show-all" type="button">Tutti</button>
+
         <select id="sort-dropdown">
           <option value="">Ordina per:</option>
           <optgroup label="Data">

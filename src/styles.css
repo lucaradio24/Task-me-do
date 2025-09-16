@@ -3,6 +3,7 @@ body {
   background: #fdfbf8;
   color: #333;
   margin: 0;
+  box-sizing: border-box;
 }
 
 .app-container {
@@ -35,6 +36,25 @@ body {
 /* Categorie */
 .categories {
   margin-bottom: 32px;
+}
+
+.categories-wrapper{
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: center;
+}
+
+#add-category-chip{
+  border: 2px dashed #c1c7d0;
+  border-radius: 999px;
+  max-height: 41px;
+  padding: 8px 30px;
+  background:#F7F7F7;
+  color: #757575;
+  cursor: pointer;
+  font-weight: 500;
+  margin-bottom: 8px;
 }
 
 #categories-title {
@@ -147,6 +167,10 @@ body {
   margin-bottom: 16px;
 }
 
+.categories-list li.selected{
+  background-color: #a7c7e7;
+}
+
 /* Task list */
 .task-list {
   display: flex;
@@ -161,26 +185,40 @@ body {
   border-radius: 16px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
   padding: 16px;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 0.5fr 4fr 1fr;
+  grid-template-areas: 
+  'check data';
   margin-bottom: 8px;
   position: relative;
+  transition: opacity 0.5s ease;
 }
+
+
 
 .completed {
   text-decoration: line-through;
   opacity: 0.6;
 }
 
+.fading-out {
+  opacity: 0; /* Fade-out completo durante lo spostamento */
+}
+
 .task h2 {
   font-weight: 600;
   font-size: 1.1rem;
   margin: 0 0 4px 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 62%;
 }
 
 .task p {
   margin: 0 0 8px 0;
   color: #757575;
+  text-overflow: ellipsis;
+  max-width: 62%;
 }
 
 .task h3 {
@@ -210,20 +248,30 @@ body {
   accent-color: #c1e1c1;
   width: 20px;
   height: 20px;
- 
+  
   cursor: pointer;
 }
 
 .svg-checkbox{
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    color: #757575;
+    grid-area: check;
+    margin-right: 0.7rem;
+    
 }
 
-
+.task-data{
+  grid-area: data;
+  
+}
 
 .task-actions{
     position: absolute;
     top: 10%;
     left: 80%;
+    
 }
 
 .edit-btn,

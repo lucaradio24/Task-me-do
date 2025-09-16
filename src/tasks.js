@@ -1,13 +1,13 @@
 import { format } from "date-fns";
 
 export class Task {
-    constructor(title, desc, dueDate, priority, isCompleted){
+    constructor(title, desc, dueDate, priority, isCompleted = false){
         this.id = crypto.randomUUID()
         this.title = title;
         this.desc = desc;
         this.dueDate = new Date(dueDate)
         this.priority = priority;
-        this.isCompleted = isCompleted = false;
+        this.isCompleted = isCompleted;
     }
 
     toggleCompleted(){

@@ -31,7 +31,7 @@
         <h2 id="categories-title">Categorie</h2>
       <div class="categories-wrapper">  
         <ul class="categories-list"></ul>
-        <button id="add-category-chip">Aggiungi</button>
+        
       </div>  
         <form id="new-category-form" autocomplete="off">
           <label for="new-category">Nuova categoria</label>
@@ -45,15 +45,16 @@
         </form>
       </section>
 
-      <nav class="tabs">
+    <div class="toolbar">  
+      <div class="tabs">
         <button id="show-uncompleted" type="button" class="active">
           Da completare
         </button>
-        <button id="show-completed" type="button">Completati</button>
-        <button id="show-all" type="button">Tutti</button>
+        <button id="show-completed" type="button">Completati</button>     
+      </div>
 
         <select id="sort-dropdown">
-          <option value="">Ordina per:</option>
+          <option value="">Ordina:</option>
           <optgroup label="Data">
             <option value="date-inc">↑ Dal più recente</option>
             <option value="date-dec">↓ Dal meno recente</option>
@@ -63,10 +64,11 @@
             <option value="priority-dec">↓ Dal più urgente</option>
           </optgroup>
         </select>
-      </nav>
-
+    </div>  
       <h2 class="category-selected">Personale</h2>
-
+       
+ 
+      
       <div class="task-list"></div>
 
       <dialog id="new-task-dialog">

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task Me Do</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-container">
+      <header class="app-header">
+        <div>
+          <p class="hello text-secondary">Ciao!</p>
+          <h1 class="main-title">Le tue attività</h1>
+        </div>
+        <img src="https://placehold.co/48x48" alt="Avatar utente" class="avatar" />
+      </header>
+      <section class="categories">
+        <h2 id="categories-title">Categorie</h2>
+        <div class="categories-wrapper">
+          <ul class="categories-list"></ul>
+        </div>
+        <form id="new-category-form" autocomplete="off">
+          <label for="new-category">Nuova categoria</label>
+          <input type="text" id="new-category" placeholder="Nome categoria" required />
+          <button id="new-category-btn" type="submit">+</button>
+        </form>
+      </section>
+      <div class="toolbar">
+        <div class="tabs">
+          <button id="show-uncompleted" type="button" class="active">Da completare</button>
+          <button id="show-completed" type="button">Completati</button>
+        </div>
+        <select id="sort-dropdown">
+          <option value="">Ordina:</option>
+          <optgroup label="Data">
+            <option value="date-inc">↑ Dal più recente</option>
+            <option value="date-dec">↓ Dal meno recente</option>
+          </optgroup>
+        </select>
+      </div>
+      <!-- ...continua con il resto del template... -->
+      <script type="module" src="index.js"></script>
+    </div>
+  </body>
+</html>

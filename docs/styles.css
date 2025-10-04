@@ -1,0 +1,21 @@
+body {
+  font-family: "Poppins", sans-serif;
+  background: #fdfbf8;
+  color: #333;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.app-container {
+  max-width: 400px;
+  margin: 32px auto;
+  padding: 24px;
+  border-radius: 24px;
+  background: #fdfbf8;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* ...continua con il resto del CSS... */
